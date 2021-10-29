@@ -1,0 +1,38 @@
+function whatIsInAName(collection, source) {
+  let arr = [];
+
+  // FUNCTION: Puts together, in the form of a string, every key-value pair of every object in an array.
+  let joinEachPair = arr => {
+    let newArr = [];
+    for (const [key, value] of Object.entries(arr)) {
+      newArr[key] = [];
+      Object.entries(value).forEach(item => {
+        let str = item.join();
+        newArr[key].push(str);
+      });
+    }
+    return newArr;
+  };
+
+  // Convert 'source' to an array of objects before feeding it into the 'joinEachPair' function.
+  let sourceToArray = [source];
+  let strSource = joinEachPair(sourceToArray);
+  let strCollection = joinEachPair(collection);
+  
+  // FUNCTION: Determines if every element in 'subsetArr' belongs to 'setArr'.
+  let belongsToSet = (setArr, subsetArr) => subsetArr.every(element => setArr.includes(element));
+
+  // Store in 'arr' every item from the collection that corresponds to a match with the source.
+  for (let i = 0; i < strCollection.length; i++) {
+    if (belongsToSet(strCollection[i], strSource[0])) {
+      arr.push(collection[i]);
+    }
+  }
+
+  return arr;
+}
+
+// A couple of test cases.
+console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
+console.log("");
+console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "apple": 1, "cookie": 2 }], { "apple": 1, "cookie": 2 }));
