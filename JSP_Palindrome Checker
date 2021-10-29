@@ -1,0 +1,22 @@
+function palindrome(str) {
+
+  let leftToRight = [];
+  let rightToLeft = [];
+
+  // Set the string to lower case and remove all symbols and spaces.
+  leftToRight = str.toLowerCase();
+  leftToRight = leftToRight.replace(/[^a-z0-9]/gi, '');
+
+  // Write in 'rightToLeft' every character to the corresponding symmetrical index from that of 'leftToRight'...
+  for (let i = 0; i < leftToRight.length; i++) {
+    rightToLeft[i] = leftToRight[(leftToRight.length - 1) - i];
+    // ... then check if the characters for the same indexes DON'T match, in which case the string cannot be a palindrome.
+    if (leftToRight[i] != rightToLeft[i]) return false;
+  }
+  return true;
+}
+
+console.log(palindrome("eyessseye") + "\n");                        // true
+console.log(palindrome("D!n()5@ur") + "\n");                        // false
+console.log(palindrome("A man, a plan, a canal: Panama") + "\n");   // true
+console.log(palindrome("1 eye for of 1 eye.") + "\n");              // false
