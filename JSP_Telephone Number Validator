@@ -1,0 +1,22 @@
+function telephoneCheck(str) {
+
+	// 'regexp' logic explained by chunks:
+  // digit 1 or not: (1)?
+  // space or not: (\s)?
+  // 3 digits with or without parenthesis: (\d{3}|\(\d{3}\))
+  // space, hyphen or neither: (\s|\-)?
+  // 3 digits: (\d{3})
+  // space, hyphen or neither: (\s|\-)?
+  // 4 digits: (\d{4})
+	// All of that enclosed in /^ and $/, to make sure.
+
+  let regexp = /^(1)?(\s)?(\d{3}|\(\d{3}\))(\s|\-)?(\d{3})(\s|\-)?(\d{4})$/;
+  //console.log(str.match(regexp)); // Just so that I can see what is going on in there.
+  return regexp.test(str);
+}
+
+console.log(telephoneCheck("1 ( ) 555"));					// false
+console.log(telephoneCheck("555 555-5555"));			// true
+console.log(telephoneCheck("1 555 555-5555"));		// true
+console.log(telephoneCheck("15555555555"));				// true
+console.log(telephoneCheck("1 555)555-5555"));		// false
