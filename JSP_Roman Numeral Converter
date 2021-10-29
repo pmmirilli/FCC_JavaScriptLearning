@@ -1,0 +1,67 @@
+function convertToRoman(num) {
+  const ROMAN_NUMBERS = {
+    1: "I",
+    5: "V",
+    10: "X",
+    50: "L",
+    100: "C",
+    500: "D",
+    1000: "M",
+  };
+  const ROMAN_INDEXES = [
+    1,
+    5,
+    10,
+    50,
+    100,
+    500,
+    1000,
+  ];
+  const REG_EXPS = [
+    /DCCCC/,
+    /CCCC/,
+    /LXXXX/,
+    /XXXX/,
+    /VIIII/,
+    /IIII/
+  ];
+  const EXP_SUBS = [
+    "CM",
+    "CD",
+    "XC",
+    "XL",
+    "IX",
+    "IV"
+  ];
+  const LENGTH = ROMAN_INDEXES.length;
+  const EXP_LENGTH = REG_EXPS.length;
+
+  let romanNumber = '';
+  let quotients = [];
+  let remainders = [];
+  
+  // Assign the parameter 'num' to the "(i + 1)th" (which equals 'LENGTH') index of the remainders, given that each quotient will be calculated based on the remainder of the previous ('i + 1') operation.
+  remainders[LENGTH] = num;
+
+  // Define the quotient for each conversion, where "quotient" is the number of times a certain roman base numeral appears in the arabic number provided as parameter 'num'. e.g.: 49 has 4 times X, 1 time V and 4 times I. Hence, 4, 1 and 4 are the corresponding quotients.
+  for (let i = LENGTH - 1; i >= 0; i--) {
+    quotients[i] = Math.floor(remainders[i + 1] / ROMAN_INDEXES[i]);
+    remainders[i] = remainders[i + 1] % ROMAN_INDEXES[i];
+
+    // Concatenate the roman digits in their basic numeral form. e.g.: 49 = XXXXVIIII.
+    for (let j = 0; j < quotients[i]; j++) {
+      romanNumber += ROMAN_NUMBERS[ROMAN_INDEXES[i]];
+    }
+  }
+
+  // Replace the roman basic numeral forms into the "condensed" ones, such as: 49 = XXXXVIIII = XLIX.
+  for (let i = 0; i <= EXP_LENGTH; i++) {
+    romanNumber = romanNumber.replace(REG_EXPS[i], EXP_SUBS[i]);
+  }
+  
+  return romanNumber;
+}
+
+console.log("\n" + convertToRoman(646));
+console.log("\n" + convertToRoman(3999));
+console.log("\n" + convertToRoman(49));
