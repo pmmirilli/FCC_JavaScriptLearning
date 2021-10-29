@@ -1,0 +1,14 @@
+function confirmEnding(str, target) {
+  // With regexp:
+  /*
+  let regexp = new RegExp(target + '$');
+  return regexp.test(str);
+  */
+
+  // With substring: (as per requested)
+  let substr = str.substring(str.length - target.length, str.length);
+  if (substr == target) return true;
+  return false;
+}
+
+console.log(confirmEnding("Bastian", "n"));
