@@ -3,4 +3,12 @@ Meant for keeping track of whatever solutions I come up with in order to complet
 
 File names matches those from the challenges in https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/, preceded by the initials of the section to which the challenge belongs. Full name of the corresponding section and challenge index can be found under the file description of the first version.
 
-Some solutions might be overly commented, because I may need a reminder of how I acchieved that particular logic.
+It is important to note that I try to remember every lesson and solve all challenges exclusively from what I learned, without referring to:
+  1 - any documentation;
+  2 - other people's code snippets;
+  3 - hints from freeCodeCamp's Challenge Guides;
+  4 - solutions from the aforementioned guides.
+  
+Of course, that is not always possible. I sometimes will refer to at least one of the above items, in the mentioned order, to acchieve a result. After I complete a challenge -mostly - by myself, in order to improve my code, I will go through all of these and rewrite everything anew. Some solutions might be overly commented, because I may need a reminder of how I acchieved - or copied - that particular logic.
+
+Although counterproductive, this approach is aimed exclusively at learning, rather than just getting it done. 
