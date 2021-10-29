@@ -1,0 +1,19 @@
+function translatePigLatin(str) {
+  // Regexp to match any consonant or cluster of consonants at the beginning of a word, provided the input is always in lower case.
+  let regexp = /^[bcdfghjklmnpqrstvwxyz]+/;
+  let beginning = str.match(regexp);
+  let pigStr = str.slice();
+  // Check if 'beginning' has been assigned, in which case the input 'str' begins with consonant. Case true, remove the 'beginning' from the original string. Concatenate the relevant stuff right after.
+  if (beginning != null) {
+    pigStr = pigStr.replace(regexp, '');
+    pigStr += beginning + 'ay';
+  } else {
+    pigStr += 'way';
+  }
+
+  return pigStr;
+}
+
+console.log(translatePigLatin("consonant"));    // onsonantcay
+console.log(translatePigLatin("stringify"));    // ingifystray
+console.log(translatePigLatin("algorithm"));    // algorithmway
