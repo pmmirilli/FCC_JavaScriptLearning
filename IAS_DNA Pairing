@@ -1,0 +1,19 @@
+function pairElement(str) {
+  let newStr = str.match(/[A-Z]/g);
+  let pairs = [];
+ for (let i=0; i < newStr.length; i++) {
+    let pair = '';
+    pairs[i] = [];
+    switch(newStr[i]) {
+      case 'C': pair = 'G'; break;
+      case 'G': pair = 'C'; break;
+      case 'A': pair = 'T'; break;
+      case 'T': pair = 'A'; break;
+    }
+    pairs[i].push(newStr[i]);
+    pairs[i].push(pair);
+  }
+  return pairs;
+}
+
+console.log(pairElement("GCG"));
