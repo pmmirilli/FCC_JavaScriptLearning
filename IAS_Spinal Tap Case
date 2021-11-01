@@ -1,0 +1,11 @@
+function spinalCase(str) {
+  // Separate each word by either upper case first characters followed by any number of lower case or just lower case whole words, join them back together with hyphens, then lower case the whole thing. Could be done in a single string.
+  let newStr = str.match(/[A-Z]?[a-z]+/g);
+  newStr = newStr.join('-');
+  newStr = newStr.toLowerCase();
+  return newStr;
+}
+
+console.log(spinalCase('This Is Spinal Tap')); // this-is-spinal-tap
+console.log(spinalCase("thisIsSpinalTap")); // this-is-spinal-tap
+console.log(spinalCase("AllThe-small Things")); // all-the-small-things
