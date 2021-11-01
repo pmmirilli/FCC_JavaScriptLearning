@@ -1,0 +1,12 @@
+function fearNotLetter(str) {
+  // Compare the current (str.charCodeAt(i)) character in the 'str' with the expected (firstCharCode + i) character from the correct order. Both statements yield integers that can be compared. If those are different at any (except the first) index in the 'str', the loop is interrupted and the corresponding missing character is returned.
+  let firstCharCode = str.charCodeAt(0);
+  for (let i=0; i< str.length; i++) {
+    if (str.charCodeAt(i) != firstCharCode + i) {
+      return String.fromCharCode(firstCharCode + i)
+    }
+  }
+  return undefined;
+}
+
+console.log(fearNotLetter("abce")); // 'd'
