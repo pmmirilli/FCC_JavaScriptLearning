@@ -1,0 +1,13 @@
+function convertHTML(str) {
+  let newStr = str.slice();
+  newStr = newStr.replace(/&/g, "&amp;");
+  newStr = newStr.replace(/</g, "&lt;");
+  newStr = newStr.replace(/>/g, "&gt;");
+  newStr = newStr.replace(/"/g, "&quot;");
+  newStr = newStr.replace(/'/g, "&apos;");
+  return newStr;
+}
+
+console.log(convertHTML("Dolce & Gabbana"));
+console.log(convertHTML('Stuff in "quotation marks"'));
+console.log(convertHTML("Schindler's List"));
