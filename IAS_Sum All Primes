@@ -1,0 +1,21 @@
+function sumPrimes(num) {
+  // Pseudo-code for prime numbers can be found on https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes. Could have used 'Math.isPrime()' and made my life easier, but I found it interesting to implement the whole thing.
+  let isIndexPrime = [];
+  for (let i=2; i <= num; i++) isIndexPrime[i] = true;
+  
+  for (let i=2; i <= Math.sqrt(num); i++) {
+    if (isIndexPrime[i] == true) {
+      for (let x=0; x <= num; x++) {
+        isIndexPrime[i*i + x*i] = false;
+      }
+    }
+  }
+  // Sum every prime index.
+  let sum = 0;
+  for (let i=2; i <= num; i++) {
+    if (isIndexPrime[i]) sum += i;
+  }
+  return sum;
+}
+console.log(sumPrimes(977)); // 73156
+console.log(sumPrimes(10000)); //5736396
