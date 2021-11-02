@@ -1,0 +1,21 @@
+function sumFibs(num) {
+  let sumOddFibs = 1;
+  let nextFib = 0;
+  let regularFibs = [0,1];
+  // Goes through all Fibonacci numbers, but sums to 'sumOddFibs' only those that are odd. Straightforward.
+  while (nextFib <= num) {
+    nextFib = regularFibs[0] + regularFibs[1];
+    regularFibs[0] = regularFibs[1];
+    regularFibs[1] = nextFib;
+    if (nextFib % 2 != 0) {
+      sumOddFibs += nextFib;
+    }
+  }
+  // If 'num' is '1', result is forced to '1'. Otherwise, 'nextFib' is subtracted from the result because the while loop performs one last iteration before it breaks.
+  return num == 1 ? 1 : sumOddFibs - nextFib;
+}
+
+console.log(sumFibs(4)); // 5
+console.log(sumFibs(4000000)); // 4613732
+console.log(sumFibs(75024)); // 60696
+console.log(sumFibs(75025)); // 135721
