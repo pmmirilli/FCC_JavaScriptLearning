@@ -1,0 +1,16 @@
+function uniteUnique(...arr) {
+  let mainArr = arr.slice();
+  // Check if the elements from the second input array ('mainArr[1]') are contained in the first input array ('mainArr[0]'). If not, push said element to 'mainArr[0]. 'mainArr[1]' is then spliced out of 'mainArr', giving place to the third input array, which will be accessible by the same index 1 (thus 'mainArr[1]' again) in the next while loop. The loop stops when there is only one array ('mainArray[0]') left, which is then returned by the function.
+  while (mainArr.length >= 2) {
+    mainArr[1].forEach(item => {
+      if(!mainArr[0].includes(item)) {
+        mainArr[0].push(item);
+      }
+    });
+    mainArr.splice(1, 1);
+  }
+
+  return mainArr[0];
+}
+
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
