@@ -1,0 +1,14 @@
+// Remove every element from 'arr' until 'func' returns "true" for a given element. The rest of the array is not evaluated as per requested.
+function dropElements(arr, func) {
+  let newArr = arr.slice();
+  let dropAmount = 0;
+  for (let i = 0; func(newArr[i]) == false; i++) {
+    dropAmount = i + 1;
+  }
+  newArr.splice(0, dropAmount);
+  return newArr;
+}
+
+console.log(dropElements([1, 2, 3], function(n) {return n < 3; })); // [1, 2, 3]
+console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;})); // [1, 0, 1]
+console.log(dropElements([1, 2, 3, 4], function(n) {return n >= 3;})); // [3, 4]
