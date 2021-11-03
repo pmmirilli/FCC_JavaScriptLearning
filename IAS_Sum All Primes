@@ -1,5 +1,5 @@
 function sumPrimes(num) {
-  // Pseudo-code for prime numbers can be found on https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes. Could have used 'Math.isPrime()' and made my life easier, but I found it interesting to implement the whole thing.
+  // Pseudo-code for prime numbers can be found on https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes.
   let isIndexPrime = [];
   for (let i=2; i <= num; i++) isIndexPrime[i] = true;
   
