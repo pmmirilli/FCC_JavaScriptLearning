@@ -1,0 +1,41 @@
+function smallestCommons(arr) {
+  // If arguments are provided in the reverse order, switch their places.
+  let range = arr.slice();
+  if (arr[0] > arr[1]) range.reverse();
+  let min = range[0];
+  let max = range[1];
+
+  // Fill 'range' from 'min' to 'max', including both.
+  for (let i = 0; i < (max-min+1); i++) {
+    range[i] = min + i;
+  }
+
+  // FUNCTION: Tell if a given number 'num' is prime.
+  let isPrime = num => {
+    for (let i = (num-1); i >= 2; i--) {
+      if (num % i == 0) return false;
+    }
+    return true;
+  }
+
+  // Check if any number in 'range' is multiple of a 'prime'. If so, divide that number by the prime and store it in the same index of 'range'. Besides, the 'scm' is multiplied by that prime. If not, move on to the next prime and repeat everything. When all numbers stored in 'range' equal '1', the factorization is finished.
+  let scm = 1;
+  let prime = 2;
+  let factoring = true;
+  while (factoring) {
+    if (isPrime(prime) && range.some(num => num % prime == 0)) {
+      scm *= prime;
+      range.forEach((num, index, array) => {if(num % prime == 0) array[index] = (num / prime);});
+      if (range.every(num => num == 1)) {
+        factoring = false;
+      }
+    } else {
+      prime++;
+    }
+  }
+ return scm;
+}
+
+console.log(smallestCommons([5,1])); // 60
+console.log(smallestCommons([2,10])); // 2520
+console.log(smallestCommons([23,18])); // 6056820
