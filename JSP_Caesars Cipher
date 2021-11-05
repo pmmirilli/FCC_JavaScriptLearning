@@ -1,0 +1,22 @@
+function rot13(str) {
+  // FUNCTION: Convert a single character into it's rot13 counterpart. Upper case only.
+  let charRot13 = char => {
+    if (char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 77) {
+      return String.fromCharCode(char.charCodeAt(0) + 13);
+    };
+    if (char.charCodeAt(0) >= 78 && char.charCodeAt(0) <= 90) {
+      return String.fromCharCode(char.charCodeAt(0) - 13);
+    };
+    return char;
+  }
+
+  // Apply the aforementioned function to every character in the string.
+  let newStr = str.match(/./g);
+  for (let i = 0; i < newStr.length; i++) {
+    newStr[i] = charRot13(newStr[i]);
+  }
+  return newStr.join("");
+}
+
+console.log(rot13("SERR PBQR PNZC")); // FREE CODE CAMP
+console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")); // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
