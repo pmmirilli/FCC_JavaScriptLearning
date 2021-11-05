@@ -1,0 +1,16 @@
+function addTogether(...args) {
+  if (args.some(elem => typeof(elem) != 'number')) {
+    return undefined;
+  } else if (args.length >= 2) {
+    let sum = 0;
+    args.forEach(elem => sum += elem);
+    return sum;
+  } else {
+    return oneArg => typeof(oneArg) != 'number' ? undefined : oneArg + args[0];
+  }
+}
+
+console.log(addTogether(2,3)); // 5
+console.log(addTogether(2,"3")); // undefined
+console.log(addTogether(2)([3])); // undefined
+console.log(addTogether(5)(7)); // 12
