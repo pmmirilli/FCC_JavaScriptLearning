@@ -1,0 +1,86 @@
+function checkCashRegister(price, cash, cid) {
+  const CURRENCY = [
+    ["PENNY", 0.01],
+    ["NICKEL", 0.05],
+    ["DIME", 0.10],
+    ["QUARTER", 0.25],
+    ["ONE", 1],
+    ["FIVE", 5],
+    ["TEN", 10],
+    ["TWENTY", 20],
+    ["ONE HUNDRED", 100]
+  ];
+  const LENGTH = CURRENCY.length;
+  let dueQuotients = [];
+  let dueRemainders = [];
+  let change = [];
+  let newCid = [];
+
+  // FUNCTION: Round number to two decimal digits.
+  let roundTwoDecimals = num => Math.round(num * 100) / 100;
+
+  // FUNCTION: Return the integer part of the division between numbers with two decimal digits.
+  let integerDivision = (dividend, divisor) => Math.floor(Math.round(dividend * 100) / (divisor * 100));
+
+  // FUNCTION: Return the remainder of the division between numbers with two decimal digits.
+  let remainderTwoDecimals = (dividend, divisor) => ((dividend * 100) % (divisor * 100)) / 100;
+
+  // Assign 'cash - price' (the total due change) to the "(i + 1)th" (which equals 'LENGTH') index of the remainders, given that each quotient will be calculated based on the remainder of the previous ('i + 1') operation.
+  dueRemainders[LENGTH] = (cash - price);
+  
+  // Define the quotient for each currency unit, i.e., the amount of each currency unit required to cover the due change, based on the availability of cash-in-drawer for each currency unit.
+  for (let i = LENGTH - 1; i >= 0; i--) {
+    change[i] = null;
+    newCid[i] = 0;
+    // If the due change is greater than the current currency unit (hence, part of the change can be given in that currency unit) and there is cash-in-drawer available of that unit, ...
+    if (dueRemainders[i + 1] >= CURRENCY[i][1] && cid[i][1] > 0) {
+      // ... check if there is more cash-in-drawer of that currency unit than the actual required amount, in which case the change will take only a part of the total cash-in-drawer. ...
+      if (cid[i][1] >= dueRemainders[i + 1]) {
+        dueQuotients[i] = integerDivision(dueRemainders[i + 1], CURRENCY[i][1]);
+        dueRemainders[i] = remainderTwoDecimals(dueRemainders[i + 1], CURRENCY[i][1]);
+      // ... Otherwise, all the available cash-in-drawer of that currency unit will be taken for making up the due change.
+      } else {
+        dueQuotients[i] = integerDivision(cid[i][1], CURRENCY[i][1]);
+        dueRemainders[i] = roundTwoDecimals(dueRemainders[i + 1] - cid[i][1]);
+      }
+      change[i] = [];
+      change[i][0] = CURRENCY[i][0];
+      change[i][1] = roundTwoDecimals(dueQuotients[i] * CURRENCY[i][1]);
+      newCid[i] = roundTwoDecimals(cid[i][1] - change[i][1]);
+    } else {
+      dueQuotients[i] = 0;
+      dueRemainders[i] = roundTwoDecimals(dueRemainders[i + 1]);
+      newCid[i] = cid[i][1];
+    }
+    dueRemainders[i + 1] = 0;
+  }
+
+  // Return: '-1' if there is no way to pay the due change; '0' if all the cash-in-drawer was used to pay the due change; '1' otherwise (if there was some cash-in-drawer left after paying the due change).
+  let checkStatus = (newCid, remainders) => {
+    if (remainders[0] > 0) return -1;
+    if (newCid.every(unit => unit == 0)) return 0;
+    return 1;
+  }
+
+  // Format the output to match the requirements of the challenge. Oddly, it was asked that 'change' must be in highest to lowest order, however when 'change' returns 'cid', this one ends up being returned in the reverse order, because 'cid' is provided lowest to highest...
+  let status = "";
+  switch (checkStatus(newCid, dueRemainders)) {
+    case -1:
+      status = "INSUFFICIENT_FUNDS";
+      change = [];
+      break;
+    case 0:
+      status = "CLOSED";
+      change = cid;
+      break;
+    case 1:
+      status = "OPEN";
+      change = change.filter(elem => elem != null).reverse();
+      break;
+  }
+  
+  return { status, change };
+}
+
+console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
